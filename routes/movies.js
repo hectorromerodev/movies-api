@@ -56,11 +56,27 @@ function moviesApi(app) {
       res.status(200).json({
         data: updatedMovieId,
         message: 'Movie updated',
-      })
+      });
     } catch (err) {
       next(err);
     }
   });
+  // Partial update
+
+  router.patch('/:moviesId', async function (req, res, next) {
+    const { movieId } = req.params;
+    const { body: movie } = req;
+    try{
+      const partialUpdatedMovieId = await moviesService.partialUpdate({ movieId, movie });
+      res.status(200).json({
+        data: partialUpdatedMovieId,
+        message: 'Movie updated partialy'
+      });
+    }catch(err) {
+      next(err);
+    }
+  });
+
   // Delete
   router.delete('/:moviesId', async function (req, res, next) {
     const { movieId } = req.params;
@@ -69,7 +85,7 @@ function moviesApi(app) {
       res.status(200).json({
         data: deletedMovieId,
         message: 'Movie deleted',
-      })
+      });
     } catch (err) {
       next(err);
     }
