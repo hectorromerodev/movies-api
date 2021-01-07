@@ -8,7 +8,11 @@ const { config } = require('./config/index');
 const moviesApi = require('./routes/movies');
 
 // Import middleware
-const { logErrors, errorHandler } = require('./utils/middleware/errorHandlers');
+const {
+	logErrors,
+	errorHandler,
+	wrapErrors,
+} = require('./utils/middleware/errorHandlers');
 
 
 
@@ -18,8 +22,9 @@ app.use(express.json());
 // Routes
 moviesApi(app);
 
-// Middleware of error
+// Middleware of error handlers
 app.use(logErrors);
+app.use(wrapErrors);
 app.use(errorHandler);
 
 // App start
