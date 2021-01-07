@@ -13,6 +13,7 @@ const {
 	errorHandler,
 	wrapErrors,
 } = require('./utils/middleware/errorHandlers');
+const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
 
 
@@ -21,6 +22,9 @@ app.use(express.json());
 
 // Routes
 moviesApi(app);
+
+// Not found middleware catch 404
+app.use(notFoundHandler);
 
 // Middleware of error handlers
 app.use(logErrors);
