@@ -11,13 +11,13 @@ const movieSourceSchema = joi.string().uri();
 const movieTagsSchema = joi.array().items(joi.string().max(50));
 
 const createMovieSchema = joi.object({
-	title: movieTitleSchema.require(),
-	year: movieYearSchema.require(),
-	cover: movieCoverSchema.require(),
-	description: movieDescriptionSchema.require(),
-	duration: movieDurationShema.require(),
-	contentRating: movieContentRatingShema.require(),
-	source: movieSourceSchema.require(),
+	title: movieTitleSchema.required(),
+	year: movieYearSchema.required(),
+	cover: movieCoverSchema.required(),
+	description: movieDescriptionSchema.required(),
+	duration: movieDurationShema.required(),
+	contentRating: movieContentRatingShema.required(),
+	source: movieSourceSchema.required(),
 	tags: movieTagsSchema,
 });
 
