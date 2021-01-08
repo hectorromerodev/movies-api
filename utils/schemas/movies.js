@@ -1,4 +1,4 @@
-const joi = require('@hapi/joi');
+const joi = require('joi');
 
 const movieIdSchema = joi.string().regex(/^[0-9a-fA-F]{24}$/);
 const movieTitleSchema = joi.string().max(80);
@@ -7,10 +7,10 @@ const movieCoverSchema = joi.string().uri();
 const movieDescriptionSchema = joi.string().max(300);
 const movieDurationShema = joi.string().min(1).max(300);
 const movieContentRatingShema = joi.string().max(5);
-const movieSourceSchema = joi.string().uri();
-const movieTagsSchema = joi.array().items(joi.string().mac(50));
+const movieSourceSchema = joi.string().uri(); 
+const movieTagsSchema = joi.array().items(joi.string().max(50));
 
-const createMovieSchema = {
+const createMovieSchema = joi.object({
 	title: movieTitleSchema.require(),
 	year: movieYearSchema.require(),
 	cover: movieCoverSchema.require(),
@@ -19,9 +19,9 @@ const createMovieSchema = {
 	contentRating: movieContentRatingShema.require(),
 	source: movieSourceSchema.require(),
 	tags: movieTagsSchema,
-};
+});
 
-const updateMovieSchema = {
+const updateMovieSchema = joi.object({
 	title: movieTitleSchema,
 	year: movieYearSchema,
 	cover: movieCoverSchema,
@@ -30,7 +30,7 @@ const updateMovieSchema = {
 	contentRating: movieContentRatingShema,
 	source: movieSourceSchema,
 	tags: movieTagsSchema,
-};
+});
 
 module.exports = {
 	movieIdSchema,
