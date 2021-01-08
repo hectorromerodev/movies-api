@@ -1,5 +1,7 @@
 const express = require('express');
 const MoviesService = require('../services/movies');
+const joi = require('joi');
+
 const {
 	movieIdSchema,
 	createMovieSchema,
@@ -15,10 +17,8 @@ function moviesApi(app) {
 
 	router.get('/', async function (req, res, next) {
 		const { tags } = req.query;
-
 		try {
 			const movies = await moviesService.getMovies({ tags });
-
 			res.status(200).json({
 				data: movies,
 				message: 'movies listed',
@@ -30,7 +30,7 @@ function moviesApi(app) {
 
 	router.get(
 		'/:movieId',
-		validationHandler({ movieId: movieIdSchema }, 'params'),
+		validationHandler(joi.object({ movieId: movieIdSchema }), 'params'),
 		async function (req, res, next) {
 			const { movieId } = req.params;
 
@@ -67,7 +67,7 @@ function moviesApi(app) {
 
 	router.put(
 		'/:movieId',
-		validationHandler({ movieId: movieIdSchema }, 'params'),
+		validationHandler(joi.object({ movieId: movieIdSchema }), 'params'),
 		validationHandler(updateMovieSchema),
 		async function (req, res, next) {
 			const { movieId } = req.params;
@@ -91,7 +91,7 @@ function moviesApi(app) {
 
 	router.delete(
 		'/:movieId',
-		validationHandler({ movieId: movieIdSchema }, 'params'),
+		validationHandler(joi.object({ movieId: movieIdSchema }), 'params'),
 		async function (req, res, next) {
 			const { movieId } = req.params;
 
