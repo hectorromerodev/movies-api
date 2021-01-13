@@ -14,11 +14,15 @@ const {
 	wrapErrors,
 } = require('./utils/middleware/errorHandlers');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
-
-
+const cors = require('cors');
+const morganHandler = require('./utils/middleware/morganHandler');
+const helmet = require('helmet');
 
 // Middlewares
+app.use(morganHandler());
+app.use(helmet());
 app.use(express.json());
+app.use(cors());
 
 // Routes
 moviesApi(app);
