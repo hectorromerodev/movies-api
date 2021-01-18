@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "SET NODE_ENV=development && SET DEBUG=app:* && nodemon index",
-    "start": "SET NODE_ENV=production && node index",
+    "dev:win": "SET NODE_ENV=development && SET DEBUG=app:* && nodemon index",
+    "dev:mac": "NODE_ENV=development DEBUG=app:* nodemon index",
+    "start:win": "SET NODE_ENV=production && node index",
+    "start:mac": "NODE_ENV=production node index",
+    "docker:detach": "docker run -d movies-api",
     "test": "mocha --exit"
   },
   "keywords": [],
